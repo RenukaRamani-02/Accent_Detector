@@ -6,7 +6,7 @@ This project is a Streamlit-based machine learning app that detects a speaker’
 ✨ Accent detection for multiple Indian regions (Tamil, Kerala, Karnataka, Jharkhand, Gujarat, Andhra, etc.) ✨ Age prediction from voice samples ✨ Cuisine map integration linked to detected accent ✨ Balanced dataset handling to reduce bias ✨ Streamlit interface for easy interaction
 
 🛠️ Installation
-1️⃣ Clone the repository → git clone https://github.com/your-username/accent-age-cuisine-app.git 2️⃣ Create a virtual environment → python -m venv venv
+1️⃣ Clone the repository → git clone https://github.com/https://github.com/RenukaRamani-02/Accent_Detector/accent-age-cuisine-app.git 2️⃣ Create a virtual environment → python -m venv venv
 
 Activate: source venv/bin/activate (Linux/Mac) or venv\Scripts\activate (Windows) 3️⃣ Install dependencies → pip install -r requirements.txt
 
