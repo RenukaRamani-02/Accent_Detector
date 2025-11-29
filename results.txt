@@ -1,0 +1,6 @@
+gujrat: 294/298 correct (98.66%)
+kerala: 1667/1671 correct (99.76%)
+tamil: 1836/1840 correct (99.78%)
+andhra_pradesh: 1793/1794 correct (99.94%)
+karnataka: 1685/1686 correct (99.94%)
+jharkhand: 826/827 correct (99.88%)
