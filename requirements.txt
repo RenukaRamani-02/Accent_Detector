@@ -1,22 +1,12 @@
-# Core framework
 streamlit==1.39.0
-
-# ML + preprocessing
 scikit-learn==1.5.2
 joblib==1.4.2
 numpy==1.26.4
 pandas==2.2.3
-
-# Visualization
 matplotlib==3.9.2
 seaborn==0.13.2
 plotly==5.24.1
 altair==5.4.1
-
-# Data balancing / augmentation
 imbalanced-learn==0.12.3
-
-# Geospatial / cuisine map features
 folium==0.17.0
 geopandas==1.0.1
-
