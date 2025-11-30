@@ -69,7 +69,7 @@ def save_uploaded_file(uploaded_file) -> str:
         tmp.write(uploaded_file.read())
         return tmp.name
 
-def log_analysis_to_session(source: str, accent: str, confidence: float, age_group: str, age_conf: float, filename: str) -> None:
+def log_analysis_to_session(source: str, accent: str, accent_conf: float, age_group: str, age_conf: float, filename: str) -> None:
     if "history" not in st.session_state:
         st.session_state["history"] = []
     st.session_state["history"].append(
@@ -78,7 +78,7 @@ def log_analysis_to_session(source: str, accent: str, confidence: float, age_gro
             "source": source,
             "file": filename,
             "accent": accent,
-            "accent_confidence": f"{confidence:.2f}%",
+            "accent_confidence": f"{accent_conf:.2f}%",
             "age_group": age_group,
             "age_confidence": f"{age_conf:.2f}%",
         }
@@ -109,7 +109,6 @@ def analyze_file(path: str, source: str = "Uploaded", original_name: Optional[st
     st.write(f"**Age Group:** {age_group}")
     st.write(f"**Age Confidence:** {age_confidence:.2f}%")
 
-    # Show cuisine suggestions if accent matches a region
     region = accent_label.lower().replace(" ", "_")
     if region in CUISINE_MAP:
         st.write("**Famous Cuisines from this Region:**")
@@ -119,7 +118,7 @@ def analyze_file(path: str, source: str = "Uploaded", original_name: Optional[st
     log_analysis_to_session(
         source=source,
         accent=accent_label,
-        confidence=accent_confidence,
+        accent_conf=accent_confidence,
         age_group=age_group,
         age_conf=age_confidence,
         filename=os.path.basename(path) if original_name is None else original_name,
