@@ -58,5 +58,3 @@ def predict_age(audio_file):
         confidence = 100.0
 
     return prediction, confidence
-
-   
