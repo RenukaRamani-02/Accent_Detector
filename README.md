@@ -6,9 +6,27 @@ This project is a Streamlit-based machine learning app that detects a speaker’
 ✨ Accent detection for multiple Indian regions (Tamil, Kerala, Karnataka, Jharkhand, Gujarat, Andhra, etc.) ✨ Age prediction from voice samples ✨ Cuisine map integration linked to detected accent ✨ Balanced dataset handling to reduce bias ✨ Streamlit interface for easy interaction
 
 🛠️ Installation
-1️⃣ Clone the repository → git clone https://github.com/https://github.com/RenukaRamani-02/Accent_Detector/accent-age-cuisine-app.git 2️⃣ Create a virtual environment → python -m venv venv
+1️⃣ Clone the repository → git clone https://github.com/https://github.com/RenukaRamani-02/Accent_Detector/accent-age-cuisine-app.git 
 
-Activate: source venv/bin/activate (Linux/Mac) or venv\Scripts\activate (Windows) 3️⃣ Install dependencies → pip install -r requirements.txt
+2️⃣ Create & activate virtual environment
+We use accentvenv as the environment name.
+
+Windows (Command Prompt):
+bash
+python -m venv accentvenv
+accentvenv\Scripts\activate
+
+Windows (PowerShell):
+bash
+python -m venv accentvenv
+.\accentvenv\Scripts\activate
+
+macOS/Linux:
+bash
+python3 -m venv accentvenv
+source accentvenv/bin/activate
+ 
+ 👉 You’ll see (accentvenv) at the start of your terminal prompt when activated.
 
 ▶️ Usage
 ▶️ Run the app locally → streamlit run app.py 🌐 Open your browser at http://localhost:8501 to interact with the app.
@@ -29,6 +47,10 @@ Activate: source venv/bin/activate (Linux/Mac) or venv\Scripts\activate (Windows
 📄 requirements.txt → Python dependencies
 
 📄 README.md → Project documentation
+
+
+Accent_Detector/ ├── app.py # Streamlit app ├── predict.py # Prediction functions ├── train_models.py # Combined training script ├── test_predict.py # Local test script ├── requirements.txt # Dependencies ├── models/ # Saved models (.pkl) │ ├── mfcc_model.pkl │ └── age_model.pkl └── data/ # Training data (folders of .wav files)
+
 
 ⚙️ Dependencies
 🐍 Python 3.9+ 📊 Streamlit 🧠 Scikit-learn 📑 Pandas, NumPy 🎵 Librosa (for audio feature extraction) 📈 Matplotlib / Seaborn (for visualization)
