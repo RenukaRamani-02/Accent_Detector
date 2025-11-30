@@ -42,7 +42,7 @@ st.set_page_config(
 
 MODEL_PERFORMANCE = {
     "MFCC Accent Model Accuracy": "98.64%",
-    "Age Prediction ": "Random assignment",
+    "Age Prediction": "Random assignment (demo dataset)",
 }
 
 # ------------------------------------------------------------
@@ -69,7 +69,7 @@ def save_uploaded_file(uploaded_file) -> str:
         tmp.write(uploaded_file.read())
         return tmp.name
 
-def log_analysis_to_session(source: str, accent: str, confidence: float, age_group: str, filename: str) -> None:
+def log_analysis_to_session(source: str, accent: str, confidence: float, age_group: str, age_conf: float, filename: str) -> None:
     if "history" not in st.session_state:
         st.session_state["history"] = []
     st.session_state["history"].append(
@@ -78,8 +78,9 @@ def log_analysis_to_session(source: str, accent: str, confidence: float, age_gro
             "source": source,
             "file": filename,
             "accent": accent,
-            "confidence": f"{confidence:.2f}%",
+            "accent_confidence": f"{confidence:.2f}%",
             "age_group": age_group,
+            "age_confidence": f"{age_conf:.2f}%",
         }
     )
 
@@ -91,22 +92,22 @@ def render_history() -> None:
         return
     for entry in reversed(history):
         with st.expander(f"{entry['timestamp']} • {entry['source']} • {entry['file']}"):
-            st.write(f"• Accent: {entry['accent']}")
-            st.write(f"• Confidence: {entry['confidence']}")
-            st.write(f"• Age Group: {entry['age_group']}")
+            st.write(f"• Accent: {entry['accent']} (Confidence: {entry['accent_confidence']})")
+            st.write(f"• Age Group: {entry['age_group']} (Confidence: {entry['age_confidence']})")
 
 # ------------------------------------------------------------
 # Core analysis routine
 # ------------------------------------------------------------
 def analyze_file(path: str, source: str = "Uploaded", original_name: Optional[str] = None) -> None:
-    accent_label, confidence = predict_accent(path)
-    age_group = predict_age(path)
+    accent_label, accent_confidence = predict_accent(path)
+    age_group, age_confidence = predict_age(path)
 
     st.markdown("### 🧪 Analysis result")
     st.write(f"**Input:** {original_name or os.path.basename(path)}")
     st.write(f"**Detected Accent:** {accent_label}")
-    st.write(f"**Confidence:** {confidence:.2f}%")
+    st.write(f"**Accent Confidence:** {accent_confidence:.2f}%")
     st.write(f"**Age Group:** {age_group}")
+    st.write(f"**Age Confidence:** {age_confidence:.2f}%")
 
     # Show cuisine suggestions if accent matches a region
     region = accent_label.lower().replace(" ", "_")
@@ -118,8 +119,9 @@ def analyze_file(path: str, source: str = "Uploaded", original_name: Optional[st
     log_analysis_to_session(
         source=source,
         accent=accent_label,
-        confidence=confidence,
+        confidence=accent_confidence,
         age_group=age_group,
+        age_conf=age_confidence,
         filename=os.path.basename(path) if original_name is None else original_name,
     )
 
