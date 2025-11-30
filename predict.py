@@ -20,16 +20,37 @@ age_model = joblib.load(age_model_path) if os.path.exists(age_model_path) else N
 # ------------------------------------------------------------
 def predict_accent(audio_file):
     if accent_model is None:
-        return "Accent model not available"
+        return "Accent model not available", 0.0
     y, sr = librosa.load(audio_file, sr=None)
     mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
     features = np.mean(mfcc.T, axis=0).reshape(1, -1)
-    return accent_model.predict(features)[0]
+    prediction = accent_model.predict(features)[0]
+
+    # Confidence score if model supports probabilities
+    if hasattr(accent_model, "predict_proba"):
+        proba = accent_model.predict_proba(features)
+        confidence = float(np.max(proba[0]))
+    else:
+        confidence = 1.0
+
+    return prediction, confidence
+
 
 def predict_age(audio_file):
     if age_model is None:
-        return "Age model not available"
+        return "Age model not available", 0.0
     y, sr = librosa.load(audio_file, sr=None)
     mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
     features = np.mean(mfcc.T, axis=0).reshape(1, -1)
-    return age_model.predict(features)[0]
+    prediction = age_model.predict(features)[0]
+
+    # Confidence score if model supports probabilities
+    if hasattr(age_model, "predict_proba"):
+        proba = age_model.predict_proba(features)
+        confidence = float(np.max(proba[0]))
+    else:
+        confidence = 1.0
+
+    return prediction, confidence
+
+
